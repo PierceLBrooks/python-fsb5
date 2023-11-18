@@ -1,3 +1,4 @@
+import io
 import os
 import ctypes
 import struct
@@ -5,7 +6,10 @@ import struct
 
 class BinaryReader:
 	def __init__(self, buf, endian="<"):
-		self.buf = buf
+		if "bytes" in str(type(buf)):
+			self.buf = io.BytesIO(buf)
+		else:
+			self.buf = buf
 		self.endian = endian
 		self.seek(0, 2)
 		self.size = self.tell()
@@ -59,7 +63,7 @@ class BinaryReader:
 
 
 class LibraryNotFoundException(OSError):
-    pass
+		pass
 
 
 def load_lib(*names):

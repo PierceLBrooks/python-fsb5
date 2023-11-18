@@ -122,10 +122,10 @@ class FSB5:
 		chunk = 10240000
 		fpos = 0
 		while True:
-				ff = buf.read(chunk)
+				ff = buf.read_string(chunk).decode()
 				if not ff:
 						break
-				offset = ff.find(b"FSB5")
+				offset = ff.find("FSB5")
 				if offset > 0:
 						offset += fpos
 						break
@@ -215,7 +215,7 @@ class FSB5:
 		buf.seek(self.header.size + self.header.sampleHeadersSize + self.header.nameTableSize)
 		for i in range(self.header.numSamples):
 			data_start = self.samples[i].dataOffset
-			data_end   = data_start + self.header.dataSize
+			data_end	 = data_start + self.header.dataSize
 			if i < self.header.numSamples-1:
 				data_end = self.samples[i+1].dataOffset
 			self.samples[i] = self.samples[i]._replace(dataEnd=data_end)

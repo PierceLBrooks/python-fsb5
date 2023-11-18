@@ -95,7 +95,7 @@ class FSBExtractor:
 			sample_fakepath = '{0}:{1}.{2}'.format(fsb_name, sample.name, ext)
 			try:
 				yield sample_fakepath, '{0}_{1}-{2}ch-{3}smpl'.format(sample.name, sample.frequency, sample.channels,
-																	  sample.samples), fsb.rebuild_sample(sample)
+																	  sample.samples), fsb._rebuild_sample(sample)
 			except ValueError as e:
 				self.error('FAILED to extract %r: %s' % (sample_fakepath, e))
 
